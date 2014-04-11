@@ -1,0 +1,10 @@
+mn_match:
+    resource: "@MNMatchBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+mn_player:
+    resource: "@MNPlayerBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
