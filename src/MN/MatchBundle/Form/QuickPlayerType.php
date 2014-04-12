@@ -5,9 +5,8 @@ namespace MN\MatchBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use MN\MatchBundle\Form\TeamPlayerType;
 
-class TeamType extends AbstractType
+class QuickPlayerType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -16,12 +15,11 @@ class TeamType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('game')
-            ->add('team_category')
-            ->add('name')
-            ->add('result_type')
-            ->add('goals_scored')
-            ->add('players', new QuickPlayerType())
+            ->add('players', 'entity', array(
+                'class' => 'MNPlayerBundle:Player',
+                'multiple' => true,
+                'expanded' => true,
+            ))
         ;
     }
     
@@ -31,7 +29,7 @@ class TeamType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'MN\MatchBundle\Entity\Team'
+            'data_class' => null
         ));
     }
 
@@ -40,6 +38,6 @@ class TeamType extends AbstractType
      */
     public function getName()
     {
-        return 'mn_matchbundle_team';
+        return 'mn_matchbundle_quickplayer';
     }
 }

@@ -3,6 +3,8 @@
 namespace MN\MatchBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use MN\MatchBundle\Entity\TeamPlayer;
+use \Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Team
@@ -58,6 +60,14 @@ class Team
      */
     private $team_players;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->team_players = new ArrayCollection();
+    }
+
     public function __toString()
     {
         if($this->getTeamCategory() && $this->getTeamCategory()->getName()){
@@ -69,7 +79,7 @@ class Team
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -115,18 +125,11 @@ class Team
     /**
      * Get score
      *
-     * @return integer 
+     * @return integer
      */
     public function getScore()
     {
         return $this->score;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->team_players = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -252,5 +255,39 @@ class Team
     public function getTeamPlayers()
     {
         return $this->team_players;
+    }
+
+    public function getPlayers(){
+        $players = array();
+        foreach ($this->getTeamPlayers() as $player) {
+            $players[] = $player;
+        }
+        return $players;
+    }
+
+    public function addPlayer($player){
+        if($player instanceof ArrayCollection){
+            $this->setPlayers($player);
+        }else{
+            $team_player = new TeamPlayer();
+            $team_player->setTeam($this);
+            $team_player->setPlayer($player);
+            $team_player->setPaid(0);
+            $this->addTeamPlayer($team_player);
+        }
+    }
+
+    public function setPlayers($players){
+        foreach ($players as $player) {
+            $team_player = new TeamPlayer();
+            $team_player->setTeam($this);
+            $team_player->setPlayer($player);
+            $team_player->setPaid(0);
+            $this->addTeamPlayer($team_player);
+        }
+    }
+
+    public function removePlayer($player){
+        $this->getPlayers()->removeElement($player);
     }
 }

@@ -5,6 +5,7 @@ namespace MN\PlayerBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use MN\UsefulBundle\Form\ImageType;
 
 class PlayerType extends AbstractType
 {
@@ -17,6 +18,7 @@ class PlayerType extends AbstractType
         $builder
             ->add('firstname')
             ->add('lastname')
+            ->add('image', new ImageType())
         ;
     }
     

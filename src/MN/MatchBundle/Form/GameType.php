@@ -5,6 +5,7 @@ namespace MN\MatchBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use MN\MatchBundle\Form\TeamType;
 
 class GameType extends AbstractType
 {
@@ -18,6 +19,10 @@ class GameType extends AbstractType
             ->add('date')
             ->add('cost')
             ->add('subs')
+            ->add('teams', 'collection', array(
+                'type'=>new QuickTeamType(),
+                'allow_add'    => true,
+            ))
         ;
     }
     

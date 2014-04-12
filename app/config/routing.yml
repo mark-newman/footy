@@ -1,3 +1,8 @@
+mn_useful:
+    resource: "@MNUsefulBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 mn_match:
     resource: "@MNMatchBundle/Controller/"
     type:     annotation

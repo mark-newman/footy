@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use MN\MatchBundle\Form\TeamPlayerType;
 
-class TeamType extends AbstractType
+class QuickTeamType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -16,7 +16,6 @@ class TeamType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('game')
             ->add('team_category')
             ->add('name')
             ->add('result_type')
@@ -40,6 +39,6 @@ class TeamType extends AbstractType
      */
     public function getName()
     {
-        return 'mn_matchbundle_team';
+        return 'mn_matchbundle_quickteam';
     }
 }

@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new MN\PlayerBundle\MNPlayerBundle(),
             new MN\MatchBundle\MNMatchBundle(),
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
+            new MN\UsefulBundle\MNUsefulBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

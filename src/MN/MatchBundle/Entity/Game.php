@@ -141,12 +141,12 @@ class Game
     /**
      * Add teams
      *
-     * @param \MN\MatchBundle\Entity\Team $teams
+     * @param \MN\MatchBundle\Entity\Team $team
      * @return Game
      */
-    public function addTeam(\MN\MatchBundle\Entity\Team $teams)
+    public function addTeam(\MN\MatchBundle\Entity\Team $team)
     {
-        $this->teams[] = $teams;
+        $this->teams[] = $team;
 
         return $this;
     }

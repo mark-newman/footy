@@ -1,6 +1,6 @@
 <?php
 
-namespace MN\MatchBundle\Controller;
+namespace MN\UsefulBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

@@ -1,37 +1,35 @@
 <?php
 
-namespace MN\MatchBundle\Form;
+namespace MN\UsefulBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use MN\MatchBundle\Form\TeamPlayerType;
 
-class TeamType extends AbstractType
+class ImageType extends AbstractType
 {
-        /**
+
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('game')
-            ->add('team_category')
-            ->add('name')
-            ->add('result_type')
-            ->add('goals_scored')
-            ->add('players', new QuickPlayerType())
+            ->add('file', 'file', array(
+                'label' => false,
+                'required' => false,
+            ))
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'MN\MatchBundle\Entity\Team'
+            'data_class' => 'MN\UsefulBundle\Entity\Image'
         ));
     }
 
@@ -40,6 +38,6 @@ class TeamType extends AbstractType
      */
     public function getName()
     {
-        return 'mn_matchbundle_team';
+        return 'mn_usefulbundle_image';
     }
 }

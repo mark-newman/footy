@@ -50,6 +50,7 @@ class TeamCategoryController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->getImage()->setType('team_category');
             $em->persist($entity);
             $em->flush();
 
@@ -191,6 +192,7 @@ class TeamCategoryController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $entity->getImage()->setType('team_category');
             $em->flush();
 
             return $this->redirect($this->generateUrl('admin_teamcategory_edit', array('id' => $id)));

@@ -50,6 +50,7 @@ class PlayerController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->getImage()->setType('player_profile');
             $em->persist($entity);
             $em->flush();
 
@@ -191,6 +192,7 @@ class PlayerController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $entity->getImage()->setType('player_profile');
             $em->flush();
 
             return $this->redirect($this->generateUrl('admin_player_edit', array('id' => $id)));

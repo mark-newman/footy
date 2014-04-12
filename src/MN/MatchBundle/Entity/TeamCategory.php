@@ -29,16 +29,23 @@ class TeamCategory
     private $name;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="logo", type="string", length=255)
-     */
-    private $logo;
-
-    /**
      * @ORM\OneToMany(targetEntity="MN\MatchBundle\Entity\Team", mappedBy="team_category")
      */
     private $teams;
+
+    /**
+     * @ORM\OneToOne(targetEntity="MN\UsefulBundle\Entity\Image", inversedBy="player", cascade={"all"})
+     * @ORM\JoinColumn(name="image_id", referencedColumnName="id", nullable=true)
+     */
+    private $image;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->teams = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     public function __toString()
     {
@@ -48,7 +55,7 @@ class TeamCategory
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -71,41 +78,11 @@ class TeamCategory
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set logo
-     *
-     * @param string $logo
-     * @return TeamCategory
-     */
-    public function setLogo($logo)
-    {
-        $this->logo = $logo;
-
-        return $this;
-    }
-
-    /**
-     * Get logo
-     *
-     * @return string 
-     */
-    public function getLogo()
-    {
-        return $this->logo;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->teams = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -139,5 +116,21 @@ class TeamCategory
     public function getTeams()
     {
         return $this->teams;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

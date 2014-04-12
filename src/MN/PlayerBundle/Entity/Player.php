@@ -40,6 +40,12 @@ class Player
      */
     private $team_players;
 
+    /**
+     * @ORM\OneToOne(targetEntity="MN\UsefulBundle\Entity\Image", inversedBy="player", cascade={"all"})
+     * @ORM\JoinColumn(name="image_id", referencedColumnName="id", nullable=true)
+     */
+    private $image;
+
     public function __toString()
     {
         return $this->getFirstname().' '.$this->getLastname();
@@ -140,4 +146,21 @@ class Player
     {
         return $this->team_players;
     }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
 }
