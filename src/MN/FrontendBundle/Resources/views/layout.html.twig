@@ -20,7 +20,8 @@
     {{ parent() }}
     <script type="text/javascript">
         $(document).ready(function(){
-            $('.details').click(function(){
+            $('.details').click(function(e){
+                e.preventDefault();
                 if($(this).find('span').hasClass('glyphicon-chevron-right')){
                     $(this).find('span').removeClass('glyphicon-chevron-right');
                     $(this).find('span').addClass('glyphicon-chevron-down');
@@ -30,7 +31,8 @@
                 }
                 $(this).closest('tr').next('tr.detail').toggle();
             });
-            $('.next-game-details').click(function(){
+            $('.next-game-details').click(function(e){
+                e.preventDefault();
                 if($(this).find('span').hasClass('glyphicon-chevron-right')){
                     $(this).find('span').removeClass('glyphicon-chevron-right');
                     $(this).find('span').addClass('glyphicon-chevron-down');
