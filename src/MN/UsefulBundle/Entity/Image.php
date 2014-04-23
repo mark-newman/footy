@@ -130,7 +130,7 @@ class Image
     }
 
     public function getUploadRootDir(){
-        return '/images/'.$this->getType();
+        return 'images/'.$this->getType();
     }
 
     public function getAbsolutePath(){

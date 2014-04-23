@@ -73,5 +73,5 @@ avalanche_imagine:
     filters:
         thumb:
             type:    thumbnail
-            options: { size: [160, 160], mode: outbound }
+            options: { size: [250, 250], mode: outbound }
 

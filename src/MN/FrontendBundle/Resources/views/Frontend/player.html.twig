@@ -22,7 +22,7 @@
                             <tr>
                                 <td>{{ player.firstname }} {{ player.lastname }}</td>
                                 <td>{{ player.nickname }}</td>
-                                <td class="center">{{ player.getSubsOwed() > 0 ? '£'~player.getSubsOwed() : 'All square' }}</td>
+                                <td class="center">£{{ player.getSubsOwed() }}</td>
                                 <td class="center"><a href="{{ path('player_profile', { 'id' : player.id }) }}">Profile</a></td>
                             </tr>
                         {% endfor %}
@@ -32,8 +32,9 @@
             </div>
         </div>
         <div class="col-sm-4 well">
-            {{ render(controller('MNFrontendBundle:Frontend:atAGlancePlayerWidget')) }}
             {{ render(controller('MNFrontendBundle:Frontend:playerLocationsWidget', { 'players' : players })) }}
+            <div class="bottom-buffer"></div>
+            {{ render(controller('MNFrontendBundle:Frontend:atAGlancePlayerWidget')) }}
         </div>
     </div>
 {% endblock %}

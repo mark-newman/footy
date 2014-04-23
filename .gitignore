@@ -10,7 +10,5 @@
 /bin/
 /.idea
 /app/config/security.yml
-/web/images/player_profile/
-/web/images/team_category/
 /web/js/*
 /web/css/*

@@ -11,27 +11,28 @@
                     <div class="row bottom-buffer">
                         {% if player.nickname != 'Trix' %}
                             {% if player.image %}
-                                <div class="col-md-3 center">
+                                <div class="col-md-5 center">
                                     <img class="bottom-buffer" src="{{ player.image.getAbsolutePath() | apply_filter('thumb') }}" alt="{{ player.nickname }}"/>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-7">
                             {% else %}
                                 <div class="col-xs-12">
                             {% endif %}
                                 {{ player.bio | raw }}
                             </div>
                             {% else %}
-                                <iframe width="100%" height="400" src="//www.youtube.com/embed/WwoM5fLITfk" frameborder="0" allowfullscreen></iframe>
+                                <iframe width="100%" height="400" src="//www.youtube.com/embed/T_x6QmuJdms" frameborder="0" allowfullscreen></iframe>
                             {% endif %}
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-sm-4 well">
-            {{ render(controller('MNFrontendBundle:Frontend:atAGlancePlayerWidget')) }}
             {% if player.longitude and player.latitude %}
                 {{ render(controller('MNFrontendBundle:Frontend:playerLocationsWidget', { 'players' : [player] } )) }}
+                <div class="bottom-buffer"></div>
             {% endif %}
+            {{ render(controller('MNFrontendBundle:Frontend:atAGlancePlayerWidget')) }}
         </div>
     </div>
 {% endblock %}
