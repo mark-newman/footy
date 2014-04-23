@@ -5,20 +5,33 @@
         <div class="col-sm-8">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="center">{{ player.firstname }} {{ player.lastname }}</h3>
+                    <h3 class="center">{{ player.firstname }}{% if player.nickname != '' %} "{{ player.nickname }}"{% endif %} {{ player.lastname }}</h3>
                 </div>
                 <div class="panel-body">
                     <div class="row bottom-buffer">
-                        <div class="col-xs-12">
-
-                        </div>
+                        {% if player.nickname != 'Trix' %}
+                            {% if player.image %}
+                                <div class="col-md-3 center">
+                                    <img class="bottom-buffer" src="{{ player.image.getAbsolutePath() | apply_filter('thumb') }}" alt="{{ player.nickname }}"/>
+                                </div>
+                                <div class="col-md-9">
+                            {% else %}
+                                <div class="col-xs-12">
+                            {% endif %}
+                                {{ player.bio | raw }}
+                            </div>
+                            {% else %}
+                                <iframe width="100%" height="400" src="//www.youtube.com/embed/WwoM5fLITfk" frameborder="0" allowfullscreen></iframe>
+                            {% endif %}
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-sm-4 well">
-            {{ render(controller('MNFrontendBundle:Frontend:playerVitalStatisticsWidget')) }}
-            {{ render(controller('MNFrontendBundle:Frontend:playerLocationWidget')) }}
+            {{ render(controller('MNFrontendBundle:Frontend:atAGlancePlayerWidget')) }}
+            {% if player.longitude and player.latitude %}
+                {{ render(controller('MNFrontendBundle:Frontend:playerLocationsWidget', { 'players' : [player] } )) }}
+            {% endif %}
         </div>
     </div>
 {% endblock %}

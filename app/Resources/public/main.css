@@ -11,6 +11,11 @@
 .bottom-buffer {
     margin-bottom: 20px;
 }
+@media (max-width: 768px) {
+    .sssf {
+        font-size: 20px;
+    }
+}
 
 /* Top menu */
 #header_wrapper ul.nav-tabs li {

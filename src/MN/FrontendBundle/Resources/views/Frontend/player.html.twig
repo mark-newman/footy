@@ -14,7 +14,7 @@
                             <th>Name</th>
                             <th>Nickname</th>
                             <th class="center">Subs owed</th>
-                            <th class="col-sm-1">Details</th>
+                            <th class="col-sm-1"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -23,23 +23,7 @@
                                 <td>{{ player.firstname }} {{ player.lastname }}</td>
                                 <td>{{ player.nickname }}</td>
                                 <td class="center">{{ player.getSubsOwed() > 0 ? '£'~player.getSubsOwed() : 'All square' }}</td>
-                                <td class="center"><a class="details" href="#" rel="#next_match_details"><span class="glyphicon glyphicon-chevron-right"></span></a></td>
-                            </tr>
-                            <tr class="detail" style="display: none">
-                                <td colspan="4">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            {% if player.nickname != 'Trix' %}
-                                            {% if player.image %}
-                                                <img src="{{ player.image.getAbsolutePath() | apply_filter('thumb') }}" />
-                                            {% endif %}
-                                            {{ player.bio | raw }}
-                                            {% else %}
-                                                <iframe width="100%" height="400" src="//www.youtube.com/embed/WwoM5fLITfk" frameborder="0" allowfullscreen></iframe>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                </td>
+                                <td class="center"><a href="{{ path('player_profile', { 'id' : player.id }) }}">Profile</a></td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -49,7 +33,7 @@
         </div>
         <div class="col-sm-4 well">
             {{ render(controller('MNFrontendBundle:Frontend:atAGlancePlayerWidget')) }}
-            {{ render(controller('MNFrontendBundle:Frontend:nextGameWidget')) }}
+            {{ render(controller('MNFrontendBundle:Frontend:playerLocationsWidget', { 'players' : players })) }}
         </div>
     </div>
 {% endblock %}

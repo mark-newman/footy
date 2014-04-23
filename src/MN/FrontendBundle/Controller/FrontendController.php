@@ -52,7 +52,7 @@ class FrontendController extends Controller
     }
 
     /**
-     * @Route("/player/{id}", name="player_profile")
+     * @Route("/player/profile/{id}", name="player_profile")
      * @Template()
      */
     public function playerProfileAction(Player $player)
@@ -85,7 +85,6 @@ class FrontendController extends Controller
     }
 
     public function playerVitalStatisticsWidgetAction(Player $player){
-
         return $this->render('MNFrontendBundle:Partials:playerVitalStatisticsWidget.html.twig', compact('player'));
     }
 
@@ -94,29 +93,38 @@ class FrontendController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/map")
      */
-    public function playerLocationsWidgetAction($players=array()){
+    public function playerLocationsWidgetAction($players){
 
         $em = $this->getDoctrine()->getManager();
 
-        $players = array($em->getRepository('MNPlayerBundle:Player')->find(1));
-
         $map = new Map();
+        $map->setStylesheetOption('width', '100%');
+        $map->setAutoZoom(true);
 
         foreach ($players as $player) {
-            $marker = new Marker();
-            $marker->setPrefixJavascriptVariable('marker_');
-            $marker->setPosition($player->getLongitude(), $player->getLatitude(), true);
-            $marker->setAnimation(Animation::DROP);
+            if(!is_null($player->getLongitude()) && !is_null($player->getLatitude())){
+                $marker = new Marker();
+                $marker->setPrefixJavascriptVariable('marker_');
+                $marker->setPosition($player->getLongitude(), $player->getLatitude(), true);
+                $marker->setAnimation(Animation::DROP);
 
-            $marker->setOption('clickable', false);
-            $marker->setOption('flat', true);
-            $marker->setOptions(array(
-                'clickable' => false,
-                'flat'      => true,
-            ));
-            $map->addMarker($marker);
+                $marker->setOption('clickable', false);
+                $marker->setOption('flat', true);
+                $marker->setOptions(array(
+                    'clickable' => false,
+                    'flat'      => true,
+                ));
+                $map->addMarker($marker);
+                if(count($players) == 1){
+                    $map->setAutoZoom(false);
+                    $map->setCenter($player->getLongitude(), $player->getLatitude());
+                    $map->setMapOption('zoom', 8);
+                }else{
+
+                }
+            }
         }
 
-        return $this->render('MNFrontendBundle:Partials:playerLocationWidget.html.twig', compact('map'));
+        return $this->render('MNFrontendBundle:Partials:playerLocationsWidget.html.twig', compact('map'));
     }
 }

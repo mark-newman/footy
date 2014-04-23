@@ -18,7 +18,11 @@ class PlayerType extends AbstractType
         $builder
             ->add('firstname')
             ->add('lastname')
+            ->add('nickname')
             ->add('image', new ImageType())
+            ->add('latitude')
+            ->add('longitude')
+            ->add('bio')
         ;
     }
     
