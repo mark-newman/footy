@@ -48,7 +48,6 @@ class GameController extends Controller
         $entity = new Game();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             foreach($entity->getTeams() as $team){
@@ -95,8 +94,6 @@ class GameController extends Controller
     public function newAction()
     {
         $entity = new Game();
-        $entity->addTeam(new Team());
-        $entity->addTeam(new Team());
         $form   = $this->createCreateForm($entity);
 
         return array(
@@ -195,7 +192,6 @@ class GameController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-
         if ($editForm->isValid()) {
             $em->flush();
 

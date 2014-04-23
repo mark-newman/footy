@@ -20,6 +20,10 @@ class AppKernel extends Kernel
             new MN\MatchBundle\MNMatchBundle(),
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
             new MN\UsefulBundle\MNUsefulBundle(),
+            new MN\FrontendBundle\MNFrontendBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
+            new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

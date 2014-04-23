@@ -1,0 +1,52 @@
+{% extends 'MNFrontendBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="center">Matches</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Teams</th>
+                                <th>Result</th>
+                                <th class="col-sm-1">Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for match in matches %}
+                                <tr>
+                                    <td>{{ match.date | date('l jS M') }}</td>
+                                    <td>{{ match.getHomeTeam().getDisplayName() }} v {{ match.getAwayTeam().getDisplayName() }}</td>
+                                    <td>{% if match.getHomeTeam().getGoalsScored() != '' and match.getAwayTeam().getGoalsScored() != '' %}{{ match.getHomeTeam().getGoalsScored() }} - {{ match.getAwayTeam().getGoalsScored() }}{% endif %}</td>
+                                    <td class="center"><a class="details" href="#" rel="#next_match_details"><span class="glyphicon glyphicon-chevron-right"></span></a></td>
+                                </tr>
+                                <tr class="detail" style="display: none">
+                                    <td colspan="4">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-body">
+                                                        {% include 'MNFrontendBundle:Partials:matchDetails.html.twig' with { 'match' : match } %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 well">
+            {{ render(controller('MNFrontendBundle:Frontend:atAGlanceMatchWidget')) }}
+            {{ render(controller('MNFrontendBundle:Frontend:nextGameWidget')) }}
+        </div>
+    </div>
+{% endblock %}

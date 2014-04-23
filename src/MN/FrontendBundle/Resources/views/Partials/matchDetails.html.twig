@@ -1,0 +1,33 @@
+<div class="row bottom-buffer">
+    <div class="col-xs-6 grb">
+        <h3 class="pull-right">{{ match.getHomeTeam().getDisplayName() }} <span class="label label-info">{{ match.getHomeTeam().getGoalsScored() }}</span></h3>
+    </div>
+    <div class="col-xs-6">
+        <h3><span class="label label-info">{{ match.getAwayTeam().getGoalsScored() }}</span> {{ match.getAwayTeam().getDisplayName() }}</h3>
+    </div>
+</div>
+<div class="row">
+    <p class="center">
+        <strong>Lineups</strong>
+    </p>
+</div>
+<div class="row bottom-buffer">
+    <div class="col-xs-6 grb">
+        {% for team_player in match.getHomeTeam().getTeamPlayers() %}
+            <p class="cb pull-right">{{ team_player.player.firstname }} {{ team_player.player.lastname }}</p>
+        {% endfor %}
+    </div>
+    <div class="col-xs-6">
+        {% for team_player in match.getAwayTeam().getTeamPlayers() %}
+            <p class="cb">{{ team_player.player.firstname }} {{ team_player.player.lastname }}</p>
+        {% endfor %}
+    </div>
+</div>
+{% if match.report != '' %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h4>Match Report</h4>
+            {{ match.report | raw }}
+        </div>
+    </div>
+{% endif %}

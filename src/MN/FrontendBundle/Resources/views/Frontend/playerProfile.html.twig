@@ -1,0 +1,24 @@
+{% extends 'MNFrontendBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="center">{{ player.firstname }} {{ player.lastname }}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row bottom-buffer">
+                        <div class="col-xs-12">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 well">
+            {{ render(controller('MNFrontendBundle:Frontend:playerVitalStatisticsWidget')) }}
+            {{ render(controller('MNFrontendBundle:Frontend:playerLocationWidget')) }}
+        </div>
+    </div>
+{% endblock %}

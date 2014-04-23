@@ -34,7 +34,7 @@ class TeamCategory
     private $teams;
 
     /**
-     * @ORM\OneToOne(targetEntity="MN\UsefulBundle\Entity\Image", inversedBy="player", cascade={"all"})
+     * @ORM\OneToOne(targetEntity="MN\UsefulBundle\Entity\Image", inversedBy="team_category", cascade={"all"})
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id", nullable=true)
      */
     private $image;
@@ -132,5 +132,19 @@ class TeamCategory
     public function getImage()
     {
         return $this->image;
+    }
+
+    public function getResults(){
+        $results = array(
+            'win' => array(),
+            'loss' => array(),
+            'draw' => array(),
+        );
+        foreach($this->getTeams() as $team){
+            if($team->getGame()->getDate() < new \DateTime()){
+                $results[$team->getResultType()] = $team;
+            }
+        }
+        return $results;
     }
 }

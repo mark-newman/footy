@@ -1,0 +1,22 @@
+services:
+    mn_main.menu_builder:
+        class: MN\UsefulBundle\Menu\MenuBuilder
+        arguments: ["@knp_menu.factory"]
+
+    mn_main.frontend.menu.main:
+        class: Knp\Menu\MenuItem
+        factory_service: mn_main.menu_builder
+        factory_method: createFrontendMainMenu
+        arguments: ["@request"]
+        scope: request
+        tags:
+            - { name: knp_menu.menu, alias: frontend_main }
+
+    mn_main.admin.menu.main:
+        class: Knp\Menu\MenuItem
+        factory_service: mn_main.menu_builder
+        factory_method: createAdminMainMenu
+        arguments: ["@request"]
+        scope: request
+        tags:
+            - { name: knp_menu.menu, alias: admin_main }

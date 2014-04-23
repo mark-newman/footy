@@ -5,7 +5,7 @@ namespace MN\MatchBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use MN\MatchBundle\Form\TeamPlayerType;
+use MN\MatchBundle\Form\QuickTeamPlayerType;
 
 class QuickTeamType extends AbstractType
 {
@@ -20,7 +20,7 @@ class QuickTeamType extends AbstractType
             ->add('name')
             ->add('result_type')
             ->add('goals_scored')
-            ->add('players', new QuickPlayerType())
+            ->add('team_players', new QuickTeamPlayerType())
         ;
     }
     

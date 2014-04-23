@@ -35,7 +35,11 @@
         "leafo/lessphp": "0.4.0",
         "twbs/bootstrap": "3.0.0",
         "braincrafted/bootstrap-bundle": "~2.0",
-        "jquery/jquery":  "1.10.*"
+        "jquery/jquery":  "1.10.*",
+        "knplabs/knp-menu-bundle":"@dev",
+        "knplabs/knp-paginator-bundle": "dev-master",
+        "avalanche123/imagine-bundle": "v2.1",
+        "egeloen/google-map-bundle": "~2.1"
     },
     "scripts": {
         "post-install-cmd": [

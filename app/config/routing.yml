@@ -1,3 +1,8 @@
+mn_frontend:
+    resource: "@MNFrontendBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 mn_useful:
     resource: "@MNUsefulBundle/Controller/"
     type:     annotation
@@ -12,4 +17,8 @@ mn_player:
     resource: "@MNPlayerBundle/Controller/"
     type:     annotation
     prefix:   /
+
+_imagine:
+    resource: .
+    type:     imagine
 

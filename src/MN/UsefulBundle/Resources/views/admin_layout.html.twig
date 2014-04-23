@@ -1,0 +1,18 @@
+{% extends '::base.html.twig' %}
+{% block top_menu %}
+    <div class="navbar navbar-inverse nd-navbar-top mix">
+        <div class="container">
+            <div class="navbar-header">
+                <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="{{ path('home') }}" class="navbar-brand text-indent">Thursday Night Football</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                {{ knp_menu_render('admin_main', { 'style': 'tabs' }) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

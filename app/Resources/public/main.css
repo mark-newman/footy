@@ -1,0 +1,23 @@
+/* General Classes */
+.cb {
+    clear: both;
+}
+.center {
+    text-align: center;
+}
+.grb {
+    border-right: 1px solid #e3e3e3;
+}
+.bottom-buffer {
+    margin-bottom: 20px;
+}
+
+/* Top menu */
+#header_wrapper ul.nav-tabs li {
+    padding-top: 4px;
+}
+
+/* Right section */
+a.next-game-details {
+    font-size: 13px;
+}

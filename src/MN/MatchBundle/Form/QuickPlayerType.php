@@ -15,7 +15,7 @@ class QuickPlayerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('players', 'entity', array(
+            ->add('team_players', 'entity', array(
                 'class' => 'MNPlayerBundle:Player',
                 'multiple' => true,
                 'expanded' => true,

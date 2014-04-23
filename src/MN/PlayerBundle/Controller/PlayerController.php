@@ -49,6 +49,7 @@ class PlayerController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            /* needs to check if an image has been added */
             $em = $this->getDoctrine()->getManager();
             $entity->getImage()->setType('player_profile');
             $em->persist($entity);

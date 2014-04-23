@@ -1,0 +1,20 @@
+{% extends 'MNFrontendBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="center">Last Match</h3>
+                </div>
+                <div class="panel-body">
+                    {% include 'MNFrontendBundle:Partials:matchDetails.html.twig' with { 'match' : last_match } %}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 well">
+            {{ render(controller('MNFrontendBundle:Frontend:atAGlanceMatchWidget')) }}
+            {{ render(controller('MNFrontendBundle:Frontend:nextGameWidget')) }}
+        </div>
+    </div>
+{% endblock %}

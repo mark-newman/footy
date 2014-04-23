@@ -1,0 +1,48 @@
+{% if next_match %}
+    <div class="row">
+        <div class="col-sm-12">
+            <h4>Next Game: {{ next_match.date | date('l jS M') }}<a class="next-game-details pull-right" href="#" rel="#next_match_details"><span class="glyphicon glyphicon-chevron-right"></span></a></h4>
+            <div id="next_match_details" class="panel panel-default" style="display: none;">
+                <div class="panel-body">
+                    <div class="row bottom-buffer">
+                        <div class="col-xs-6 grb">
+                            <h4 class="pull-right">{{ next_match.getHomeTeam().getDisplayName() }}</h4>
+                        </div>
+                        <div class="col-xs-6">
+                            <h4>{{ next_match.getAwayTeam().getDisplayName() }}</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <p class="center">
+                            <strong>Lineups</strong>
+                        </p>
+                    </div>
+                    <div class="row bottom-buffer">
+                        <div class="col-xs-6 grb">
+                            {% for team_player in next_match.getHomeTeam().getTeamPlayers() %}
+                                <p class="cb pull-right">{{ team_player.player.firstname }} {{ team_player.player.lastname }}</p>
+                            {% endfor %}
+                        </div>
+                        <div class="col-xs-6">
+                            {% for team_player in next_match.getAwayTeam().getTeamPlayers() %}
+                                <p class="cb">{{ team_player.player.firstname }} {{ team_player.player.lastname }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        {% if next_match.pitch != '' %}
+                            <p class="center">
+                                <strong>Pitch {{ next_match.pitch }}</strong>
+                            </p>
+                        {% endif %}
+                        {% if next_match.subs != '' %}
+                            <p class="center">
+                                <strong>Subs: £{{ next_match.subs }}</strong>
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

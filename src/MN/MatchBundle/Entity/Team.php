@@ -4,7 +4,7 @@ namespace MN\MatchBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use MN\MatchBundle\Entity\TeamPlayer;
-use \Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Team
@@ -33,7 +33,7 @@ class Team
     /**
      * @var integer
      *
-     * @ORM\Column(name="goals_scored", type="integer")
+     * @ORM\Column(name="goals_scored", type="integer", nullable=true)
      */
     private $goals_scored;
 
@@ -44,8 +44,9 @@ class Team
     private $game;
 
     /**
-     * @ORM\ManyToOne(targetEntity="MN\MatchBundle\Entity\ResultType", inversedBy="teams")
-     * @ORM\JoinColumn(name="result_type_id", referencedColumnName="id")
+     * @var string
+     *
+     * @ORM\Column(name="result_type", type="string", length=255, nullable=true)
      */
     private $result_type;
 
@@ -65,15 +66,12 @@ class Team
      */
     public function __construct()
     {
-        $this->team_players = new ArrayCollection();
+//        $this->team_players = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function __toString()
     {
-        if($this->getTeamCategory() && $this->getTeamCategory()->getName()){
-            return $this->getTeamCategory()->getName();
-        }
-        return $this->getName();
+        $this->getDisplayName();
     }
 
     /**
@@ -107,6 +105,13 @@ class Team
     public function getName()
     {
         return $this->name;
+    }
+
+    public function getDisplayName(){
+        if($this->getTeamCategory() && $this->getTeamCategory()->getName()){
+            return $this->getTeamCategory()->getName();
+        }
+        return $this->getName();
     }
 
     /**
@@ -181,10 +186,10 @@ class Team
     /**
      * Set result_type
      *
-     * @param \MN\MatchBundle\Entity\ResultType $resultType
+     * @param $resultType
      * @return Team
      */
-    public function setResultType(\MN\MatchBundle\Entity\ResultType $resultType = null)
+    public function setResultType($resultType = null)
     {
         $this->result_type = $resultType;
 
@@ -194,7 +199,7 @@ class Team
     /**
      * Get result_type
      *
-     * @return \MN\MatchBundle\Entity\ResultType 
+     * @return string
      */
     public function getResultType()
     {
@@ -230,10 +235,19 @@ class Team
      * @param \MN\MatchBundle\Entity\TeamPlayer $teamPlayers
      * @return Team
      */
-    public function addTeamPlayer(\MN\MatchBundle\Entity\TeamPlayer $teamPlayers)
+    public function addTeamPlayer($teamPlayers)
     {
-        $this->team_players[] = $teamPlayers;
-
+        if($teamPlayers instanceof ArrayCollection){
+            foreach($teamPlayers as $tp){
+                $team_player = new TeamPlayer();
+                $team_player->setTeam($this);
+                $team_player->setPlayer($tp);
+                $team_player->setPaid(0);
+                $this->team_players[] = $team_player;
+            }
+        }else{
+            $this->team_players[] = $teamPlayers;
+        }
         return $this;
     }
 
@@ -257,37 +271,25 @@ class Team
         return $this->team_players;
     }
 
-    public function getPlayers(){
-        $players = array();
-        foreach ($this->getTeamPlayers() as $player) {
-            $players[] = $player;
-        }
-        return $players;
-    }
-
-    public function addPlayer($player){
-        if($player instanceof ArrayCollection){
-            $this->setPlayers($player);
+    /**
+     * Get team_players
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function setTeamPlayers($team_players)
+    {
+        if($team_players instanceof ArrayCollection){
+            foreach($team_players as $tp){
+                $team_player = new TeamPlayer();
+                $team_player->setTeam($this);
+                $team_player->setPlayer($tp);
+                $team_player->setPaid(0);
+                $this->team_players[] = $team_player;
+            }
         }else{
-            $team_player = new TeamPlayer();
-            $team_player->setTeam($this);
-            $team_player->setPlayer($player);
-            $team_player->setPaid(0);
-            $this->addTeamPlayer($team_player);
+            $this->team_players[] = $team_players;
         }
+        return $this;
     }
 
-    public function setPlayers($players){
-        foreach ($players as $player) {
-            $team_player = new TeamPlayer();
-            $team_player->setTeam($this);
-            $team_player->setPlayer($player);
-            $team_player->setPaid(0);
-            $this->addTeamPlayer($team_player);
-        }
-    }
-
-    public function removePlayer($player){
-        $this->getPlayers()->removeElement($player);
-    }
 }

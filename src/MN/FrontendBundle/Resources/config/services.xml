@@ -6,11 +6,11 @@
 
     <!--
     <parameters>
-        <parameter key="mn_useful.example.class">MN\UsefulBundle\Example</parameter>
+        <parameter key="mn_frontend.example.class">MN\FrontendBundle\Example</parameter>
     </parameters>
 
     <services>
-        <service id="mn_useful.example" class="%mn_useful.example.class%">
+        <service id="mn_frontend.example" class="%mn_frontend.example.class%">
             <argument type="service" id="service_id" />
             <argument>plain_value</argument>
             <argument>%parameter_name%</argument>

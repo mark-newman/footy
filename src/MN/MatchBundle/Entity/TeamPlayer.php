@@ -3,6 +3,8 @@
 namespace MN\MatchBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use MN\MatchBundle\Entity\TeamPlayer;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * TeamPlayer
@@ -39,6 +41,10 @@ class TeamPlayer
      * @ORM\JoinColumn(name="player_id", referencedColumnName="id")
      */
     private $player;
+
+    public function __construct(){
+        $this->paid = 0;
+    }
 
     /**
      * Get id
@@ -102,10 +108,18 @@ class TeamPlayer
      * @param \MN\PlayerBundle\Entity\Player $player
      * @return TeamPlayer
      */
-    public function setPlayer(\MN\PlayerBundle\Entity\Player $player = null)
+    public function setPlayer($player = null)
     {
-        $this->player = $player;
-
+        if($player instanceof ArrayCollection){
+            foreach($player as $tp){
+                $team_player = new TeamPlayer();
+                $team_player->setTeam($this->getTeam()->getId());
+                $team_player->setPlayer($tp->getId());
+                $team_player->setPaid(0);
+            }
+        }else{
+            $this->player = $player;
+        }
         return $this;
     }
 

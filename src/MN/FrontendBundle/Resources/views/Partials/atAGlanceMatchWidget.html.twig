@@ -1,0 +1,31 @@
+<div class="row bottom-buffer">
+    <h4 class="center bottom-buffer">At a glance</h4>
+    <div class="col-sm-12 panel panel-default">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Team</th>
+                    <th>P</th>
+                    <th>W</th>
+                    <th>L</th>
+                    <th>D</th>
+                    <th>W%</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for team_category in team_categories if team_category.teams | length %}
+                    {% set results = team_category.getResults() %}
+                    {% set total_games = results.win | length + results.loss | length + results.draw | length %}
+                    <tr>
+                        <td>{{ team_category.name }}</td>
+                        <td>{{ total_games }}</td>
+                        <td>{{ results.win | length }}</td>
+                        <td>{{ results.loss | length }}</td>
+                        <td>{{ results.draw | length }}</td>
+                        <td>{{ total_games > 0 ? results.win | length / total_games * 100 : 0 }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -3,6 +3,7 @@
 namespace MN\MatchBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use MN\MatchBundle\Entity\Team;
 
 /**
  * Game
@@ -43,14 +44,38 @@ class Game
     private $subs;
 
     /**
-     * @ORM\OneToMany(targetEntity="MN\MatchBundle\Entity\Team", mappedBy="result_type", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="MN\MatchBundle\Entity\Team", mappedBy="game", cascade={"all"})
      */
     private $teams;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="report", type="text", nullable=true)
+     */
+    private $report;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="pitch", type="integer", length=255, nullable=true)
+     */
+    private $pitch;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->teams = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->addTeam(new Team());
+        $this->addTeam(new Team());
+        $this->date = new \DateTime();
+    }
 
     public function __toString(){
         return date('d/m/Y', $this->getDate()->getTimestamp());
     }
-
 
     /**
      * Get id
@@ -130,13 +155,6 @@ class Game
     {
         return $this->subs;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->teams = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add teams
@@ -170,4 +188,45 @@ class Game
     {
         return $this->teams;
     }
+
+    public function getHomeTeam(){
+        return $this->teams[0];
+    }
+
+    public function getAwayTeam(){
+        return $this->teams[1];
+    }
+
+    /**
+     * @param string $report
+     */
+    public function setReport($report)
+    {
+        $this->report = $report;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReport()
+    {
+        return $this->report;
+    }
+
+    /**
+     * @param int $pitch
+     */
+    public function setPitch($pitch)
+    {
+        $this->pitch = $pitch;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPitch()
+    {
+        return $this->pitch;
+    }
+
 }

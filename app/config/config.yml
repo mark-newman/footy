@@ -68,3 +68,10 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+avalanche_imagine:
+    filters:
+        thumb:
+            type:    thumbnail
+            options: { size: [90, 90], mode: outbound }
+

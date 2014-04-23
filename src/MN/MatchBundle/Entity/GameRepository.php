@@ -12,4 +12,25 @@ use Doctrine\ORM\EntityRepository;
  */
 class GameRepository extends EntityRepository
 {
+    public function getLastGame(){
+        return $this->getEntityManager()->createQueryBuilder('g')
+            ->select('g')
+            ->from('MNMatchBundle:Game', 'g')
+            ->where('g.date < :game_date')
+            ->setParameter('game_date', new \DateTime())
+            ->orderBy('g.date', 'desc')
+            ->getQuery()
+            ->getSingleResult();
+    }
+
+    public function getNextGame(){
+        return $this->getEntityManager()->createQueryBuilder('g')
+            ->select('g')
+            ->from('MNMatchBundle:Game', 'g')
+            ->where('g.date >= :game_date')
+            ->setParameter('game_date', new \DateTime())
+            ->orderBy('g.date', 'asc')
+            ->getQuery()
+            ->getSingleResult();
+    }
 }

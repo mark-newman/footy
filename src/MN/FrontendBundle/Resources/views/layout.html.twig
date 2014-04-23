@@ -1,0 +1,45 @@
+{% extends '::base.html.twig' %}
+{% block top_menu %}
+    <div class="navbar navbar-inverse nd-navbar-top mix">
+        <div class="container">
+            <div class="navbar-header">
+                <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="{{ path('home') }}" class="navbar-brand text-indent">Thursday Night Football</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                {{ knp_menu_render('frontend_main', { 'style': 'tabs' }) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.details').click(function(){
+                if($(this).find('span').hasClass('glyphicon-chevron-right')){
+                    $(this).find('span').removeClass('glyphicon-chevron-right');
+                    $(this).find('span').addClass('glyphicon-chevron-down');
+                }else{
+                    $(this).find('span').removeClass('glyphicon-chevron-down');
+                    $(this).find('span').addClass('glyphicon-chevron-right');
+                }
+                $(this).closest('tr').next('tr.detail').toggle();
+            });
+            $('.next-game-details').click(function(){
+                if($(this).find('span').hasClass('glyphicon-chevron-right')){
+                    $(this).find('span').removeClass('glyphicon-chevron-right');
+                    $(this).find('span').addClass('glyphicon-chevron-down');
+                }else{
+                    $(this).find('span').removeClass('glyphicon-chevron-down');
+                    $(this).find('span').addClass('glyphicon-chevron-right');
+                }
+                $($(this).attr('rel')).toggle();
+            });
+        });
+    </script>
+{% endblock %}
