@@ -14,7 +14,6 @@ class GameRepository extends EntityRepository
 {
     public function getLastGame(){
         $date = new \DateTime();
-        $date->modify('-1 day');
         $query = $this->getEntityManager()->createQueryBuilder('g')
             ->select('g')
             ->from('MNMatchBundle:Game', 'g')
@@ -30,7 +29,6 @@ class GameRepository extends EntityRepository
 
     public function getNextGame(){
         $date = new \DateTime();
-        $date->modify('-1 day');
         $query = $this->getEntityManager()->createQueryBuilder('g')
             ->select('g')
             ->from('MNMatchBundle:Game', 'g')

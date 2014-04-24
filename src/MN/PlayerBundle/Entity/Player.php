@@ -272,7 +272,6 @@ class Player
 
     public function getSubsOwed(){
         $date = new \DateTime();
-        $date->modify('-1 day');
         $subs_owed = 0;
         foreach ($this->getTeamPlayers() as $team_player) {
             if(!$team_player->getPaid() && $team_player->getTeam()->getGame()->getDate() < $date){
