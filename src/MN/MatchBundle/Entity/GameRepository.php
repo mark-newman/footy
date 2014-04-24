@@ -13,11 +13,13 @@ use Doctrine\ORM\EntityRepository;
 class GameRepository extends EntityRepository
 {
     public function getLastGame(){
+        $date = new \DateTime();
+        $date->modify('-1 day');
         $query = $this->getEntityManager()->createQueryBuilder('g')
             ->select('g')
             ->from('MNMatchBundle:Game', 'g')
             ->where('g.date < :game_date')
-            ->setParameter('game_date', new \DateTime())
+            ->setParameter('game_date', $date)
             ->orderBy('g.date', 'desc')
             ->setMaxResults(1)
             ->getQuery()
@@ -27,11 +29,13 @@ class GameRepository extends EntityRepository
     }
 
     public function getNextGame(){
+        $date = new \DateTime();
+        $date->modify('-1 day');
         $query = $this->getEntityManager()->createQueryBuilder('g')
             ->select('g')
             ->from('MNMatchBundle:Game', 'g')
             ->where('g.date >= :game_date')
-            ->setParameter('game_date', new \DateTime())
+            ->setParameter('game_date', $date)
             ->orderBy('g.date', 'asc')
             ->getQuery()
             ->setMaxResults(1)
