@@ -47,6 +47,15 @@ class Image
     protected $path;
 
     /**
+     * Image extension
+     *
+     * @var string
+     *
+     * @ORM\Column(type="extension", length=255, nullable=false)
+     */
+    protected $extension;
+
+    /**
      * Image file
      *
      * @var File
@@ -85,6 +94,7 @@ class Image
             $filename = sha1(uniqid(mt_rand(), true));
             $this->path = $filename.'.'.$this->file->guessExtension();
             $this->setName($this->file->getClientOriginalName());
+            $this->extension = $this->file->guessExtension();
         }
     }
 
@@ -271,6 +281,22 @@ class Image
     public function getTeamCategory()
     {
         return $this->team_category;
+    }
+
+    /**
+     * @param string $extension
+     */
+    public function setExtension($extension)
+    {
+        $this->extension = $extension;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExtension()
+    {
+        return $this->extension;
     }
 
 }
