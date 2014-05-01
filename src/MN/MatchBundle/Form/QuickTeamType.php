@@ -18,8 +18,6 @@ class QuickTeamType extends AbstractType
         $builder
             ->add('team_category')
             ->add('name')
-            ->add('result_type')
-            ->add('goals_scored')
             ->add('team_players', new QuickTeamPlayerType())
         ;
     }

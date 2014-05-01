@@ -1,0 +1,60 @@
+{% extends 'MNUsefulBundle::admin_layout.html.twig' %}
+
+{% block content -%}
+    <h1>Manage Subs</h1>
+    <h3>Match: {{ game.date | date('l jS M') }}</h3>
+    <table class="table">
+        <thead>
+            <th>Player</th>
+            <th class="center">Paid?</th>
+        </thead>
+        <tbody>
+            {% for team_player in game.getHomeTeam().getTeamPlayers() %}
+                <tr>
+                    <td>
+                        {{ team_player.player.firstname }} {{ team_player.player.lastname }}
+                    </td>
+                    <td class="center">
+                        <input name="subs-toggle" class="subs-toggle" type="checkbox" value="{{ team_player.id }}" {% if team_player.paid %}checked="checked" {% endif %}/>
+                    </td>
+                </tr>
+            {% endfor %}
+            {% for team_player in game.getAwayTeam().getTeamPlayers() %}
+                <tr>
+                    <td>
+                        {{ team_player.player.firstname }} {{ team_player.player.lastname }}
+                    </td>
+                    <td class="center">
+                        <input name="subs-toggle" class="subs-toggle" type="checkbox" value="{{ team_player.id }}" {% if team_player.paid %}checked="checked" {% endif %}/>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.0.0rc/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.0.0rc/js/bootstrap-switch.js"></script>
+    <script type="text/javascript">
+
+        $('input.subs-toggle:checkbox').bootstrapSwitch({
+            'onText' : 'Yes',
+            'offText' : 'No'
+        });
+
+        $('input.subs-toggle:checkbox').on('switchChange.bootstrapSwitch', function(event, state) {
+            var link = "{{ path('admin_subs_toggle', { 'id' : 'ID_PLACEHOLDER', 'value' : 'VALUE_PLACEHOLDER' }) }}";
+            link = link.replace("ID_PLACEHOLDER",$(this).attr('value'));
+            var checkbox_value = state.value ? 1 : 0;
+            link = link.replace("VALUE_PLACEHOLDER",checkbox_value);
+            $.get(link);
+        });
+
+    </script>
+{% endblock %}

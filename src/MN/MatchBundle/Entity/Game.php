@@ -63,6 +63,13 @@ class Game
     private $pitch;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="played", type="boolean")
+     */
+    private $played;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -71,6 +78,9 @@ class Game
         $this->addTeam(new Team());
         $this->addTeam(new Team());
         $this->date = new \DateTime();
+        $this->setPlayed(0);
+        $this->setCost(65);
+        $this->setSubs(6);
     }
 
     public function __toString(){
@@ -227,6 +237,22 @@ class Game
     public function getPitch()
     {
         return $this->pitch;
+    }
+
+    /**
+     * @param boolean $played
+     */
+    public function setPlayed($played)
+    {
+        $this->played = $played;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getPlayed()
+    {
+        return $this->played;
     }
 
 }

@@ -13,3 +13,8 @@
     </li>
 </ul>
 {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="http://tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+    {{ form_javascript(form) }}
+{% endblock %}

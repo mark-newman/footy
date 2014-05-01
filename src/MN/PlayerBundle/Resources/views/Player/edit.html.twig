@@ -1,16 +1,28 @@
 {% extends 'MNUsefulBundle::admin_layout.html.twig' %}
 
 {% block content -%}
+
     <h1>Player edit</h1>
 
-    {{ form(edit_form) }}
+    {% if entity.image %}
+        <div class="col-md-12">
+            <img class="bottom-buffer" src="{{ entity.image.getAbsolutePath() | apply_filter('thumb') }}" alt="{{ entity.nickname }}"/>
+        </div>
+    {% endif %}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_player') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <div class="bottom-buffer">
+        {{ form(edit_form) }}
+    </div>
+
+    <a class="btn btn-primary bottom-buffer" href="{{ path('admin_player') }}">
+        Back to the list
+    </a>
+
+    {{ form(delete_form) }}
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="http://tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+    {{ form_javascript(edit_form) }}
 {% endblock %}

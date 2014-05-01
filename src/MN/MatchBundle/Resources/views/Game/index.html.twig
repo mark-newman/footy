@@ -3,11 +3,11 @@
 {% block content -%}
     <h1>Game list</h1>
 
-    <table class="records_list">
+    <table class="records_list table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Date</th>
+                <th>Teams</th>
                 <th>Cost</th>
                 <th>Subs</th>
                 <th>Actions</th>
@@ -16,30 +16,26 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('admin_game_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{% if entity.date %}{{ entity.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.date %}{{ entity.date|date('d-m-Y') }}{% endif %}</td>
+                <td>{{ entity.getHomeTeam().getDisplayName() }} v {{ entity.getAwayTeam().getDisplayName() }}</td>
                 <td>{{ entity.cost }}</td>
                 <td>{{ entity.subs }}</td>
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('admin_game_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('admin_game_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+                    <div class="button-group">
+                        <a class="btn btn-sm btn-success" href="{{ path('admin_manage_subs', { 'id': entity.id }) }}">subs</a>
+                        <a class="btn btn-sm btn-success" href="{{ path('admin_game_result', { 'id': entity.id }) }}">result</a>
+                        <a class="btn btn-sm btn-primary" href="{{ path('admin_game_edit', { 'id': entity.id }) }}">edit</a>
+                    </div>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-        <ul>
-        <li>
-            <a href="{{ path('admin_game_new') }}">
-                Create a new entry
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-success" href="{{ path('admin_game_new') }}">
+                Add a game
             </a>
-        </li>
-    </ul>
-    {% endblock %}
+        </div>
+    </div>
+{% endblock %}

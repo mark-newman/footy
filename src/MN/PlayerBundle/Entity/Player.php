@@ -263,7 +263,7 @@ class Player
             'draw' => array(),
         );
         foreach($this->getTeamPlayers() as $team_player){
-            if($team_player->getTeam()->getGame()->getDate() < new \DateTime()){
+            if($team_player->getTeam()->getGame()->getPlayed()){
                 $results[$team_player->getTeam()->getResultType()] = $team_player;
             }
         }
@@ -271,10 +271,9 @@ class Player
     }
 
     public function getSubsOwed(){
-        $date = new \DateTime();
         $subs_owed = 0;
         foreach ($this->getTeamPlayers() as $team_player) {
-            if(!$team_player->getPaid() && $team_player->getTeam()->getGame()->getDate() < $date){
+            if(!$team_player->getPaid() && $team_player->getTeam()->getGame()->getPlayed()){
 
                 $subs_owed += $team_player->getTeam()->getGame()->getSubs();
             }

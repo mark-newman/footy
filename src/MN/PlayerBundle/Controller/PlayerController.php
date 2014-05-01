@@ -167,7 +167,7 @@ class PlayerController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Save', 'attr'=>array('class'=>'btn-success')));
 
         return $form;
     }
@@ -196,7 +196,7 @@ class PlayerController extends Controller
             $entity->getImage()->setType('player_profile');
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_player_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('admin_player'));
         }
 
         return array(
@@ -243,7 +243,7 @@ class PlayerController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('admin_player_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array('label' => 'Delete', 'attr'=>array('class'=>'btn-danger')))
             ->getForm()
         ;
     }

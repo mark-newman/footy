@@ -9,7 +9,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use MN\MatchBundle\Entity\Game;
 use MN\MatchBundle\Form\GameType;
+use MN\MatchBundle\Form\QuickGameResultType;
 use MN\MatchBundle\Entity\Team;
+use MN\MatchBundle\Entity\TeamPlayer;
 
 /**
  * Game controller.
@@ -30,7 +32,7 @@ class GameController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('MNMatchBundle:Game')->findAll();
+        $entities = $em->getRepository('MNMatchBundle:Game')->findBy(array(), array('date' => 'desc'));
 
         return array(
             'entities' => $entities,
@@ -56,7 +58,7 @@ class GameController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_game_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('admin_game'));
         }
 
         return array(
@@ -103,13 +105,33 @@ class GameController extends Controller
     }
 
     /**
+     * @Route("/{id}/subs", name="admin_manage_subs")
+     * @Template()
+     */
+    public function manageSubsAction(Game $game){
+        return compact('game');
+    }
+
+    /**
+     * @Route("/subs/update/{id}/{value}", name="admin_subs_toggle")
+     */
+    public function subsToggleAction(TeamPlayer $team_player, $value)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $team_player->setPaid($value);
+        $em->persist($team_player);
+        $em->flush();
+        return new Response(null, 200);
+    }
+
+    /**
      * Finds and displays a Game entity.
      *
-     * @Route("/{id}", name="admin_game_show")
+     * @Route("/{id}/result", name="admin_game_result")
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id)
+    public function gameResultAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -119,11 +141,11 @@ class GameController extends Controller
             throw $this->createNotFoundException('Unable to find Game entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        $resultForm = $this->createResultForm($entity);
 
         return array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'result_form'   => $resultForm->createView(),
         );
     }
 
@@ -172,6 +194,58 @@ class GameController extends Controller
 
         return $form;
     }
+
+    /**
+    * Creates a form to edit a Game entity.
+    *
+    * @param Game $entity The entity
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
+    private function createResultForm(Game $entity)
+    {
+        $form = $this->createForm(new QuickGameResultType(), $entity, array(
+            'action' => $this->generateUrl('admin_game_result_save', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Save'));
+
+        return $form;
+    }
+
+    /**
+     * Edits an existing Game entity.
+     *
+     * @Route("/save-result/{id}", name="admin_game_result_save")
+     * @Method("PUT")
+     * @Template("MNMatchBundle:Game:gameResult.html.twig")
+     */
+    public function saveResultAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('MNMatchBundle:Game')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Game entity.');
+        }
+
+        $resultForm = $this->createResultForm($entity);
+        $resultForm->handleRequest($request);
+        if ($resultForm->isValid()) {
+            $entity->setPlayed(1);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('admin_game'));
+        }
+
+        return array(
+            'entity'      => $entity,
+            'result_form'   => $resultForm->createView(),
+        );
+    }
+
     /**
      * Edits an existing Game entity.
      *

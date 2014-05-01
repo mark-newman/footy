@@ -1,16 +1,24 @@
 {% extends 'MNUsefulBundle::admin_layout.html.twig' %}
 
 {% block content -%}
-    <h1>TeamCategory edit</h1>
+    <h1>Team Category edit</h1>
+
+    {% if entity.image %}
+        <div class="col-md-12">
+            <img class="bottom-buffer" src="{{ entity.image.getAbsolutePath() | apply_filter('thumb') }}" alt="{{ entity.name }}"/>
+        </div>
+    {% endif %}
 
     {{ form(edit_form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_teamcategory') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <div class="bottom-buffer">
+        {{ form(edit_form) }}
+    </div>
+
+    <a class="btn btn-primary bottom-buffer" href="{{ path('admin_teamcategory') }}">
+        Back to the list
+    </a>
+
+    {{ form(delete_form) }}
+
 {% endblock %}

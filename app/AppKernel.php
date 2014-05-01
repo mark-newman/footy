@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
             new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
+            new Genemu\Bundle\FormBundle\GenemuFormBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

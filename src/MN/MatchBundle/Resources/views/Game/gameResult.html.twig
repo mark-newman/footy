@@ -1,0 +1,17 @@
+{% extends 'MNUsefulBundle::admin_layout.html.twig' %}
+
+{% block content -%}
+    <h1>Set Result</h1>
+
+    {{ form(result_form) }}
+
+    <a class="btn btn-primary bottom-buffer" href="{{ path('admin_game') }}">
+        Back to the list
+    </a>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="http://tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+    {{ form_javascript(result_form) }}
+{% endblock %}

@@ -75,3 +75,7 @@ avalanche_imagine:
             type:    thumbnail
             options: { size: [250, 250], mode: outbound }
 
+genemu_form:
+    tinymce:
+        enabled: true
+        theme:   modern

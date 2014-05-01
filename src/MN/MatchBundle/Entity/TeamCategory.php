@@ -141,7 +141,7 @@ class TeamCategory
             'draw' => array(),
         );
         foreach($this->getTeams() as $team){
-            if($team->getGame()->getDate() < new \DateTime()){
+            if($team->getGame()->getPlayed()){
                 $results[$team->getResultType()] = $team;
             }
         }

@@ -19,10 +19,19 @@ class PlayerType extends AbstractType
             ->add('firstname')
             ->add('lastname')
             ->add('nickname')
-            ->add('image', new ImageType())
-            ->add('latitude')
-            ->add('longitude')
-            ->add('bio')
+            ->add('image', new ImageType(), array(
+                'required' => false,
+                'label' => 'Overwrite Image?'
+            ))
+            ->add('latitude', 'text', array(
+                'required' => false,
+                'label' => 'Longitude'
+            ))
+            ->add('longitude', 'text', array(
+                'required' => false,
+                'label' => 'Latitude'
+            ))
+            ->add('bio', 'genemu_tinymce')
         ;
     }
     
