@@ -13,7 +13,7 @@
                             {% if player.image %}
                                 <div class="col-md-5 center">
                                 {% if player.image.extension == 'gif' %}
-                                        <img class="bottom-buffer" src="{{ player.image.getAbsolutePath() }}" alt="{{ player.nickname }}"/>
+                                        <img class="bottom-buffer" src="/{{ player.image.getAbsolutePath() }}" alt="{{ player.nickname }}"/>
                                     {% else %}
                                         <img class="bottom-buffer" src="{{ player.image.getAbsolutePath() | apply_filter('thumb') }}" alt="{{ player.nickname }}"/>
                                 {% endif %}
