@@ -51,7 +51,7 @@ class Image
      *
      * @var string
      *
-     * @ORM\Column(type="extension", length=255, nullable=false)
+     * @ORM\Column(type="extension", length=255, nullable=true)
      */
     protected $extension;
 
