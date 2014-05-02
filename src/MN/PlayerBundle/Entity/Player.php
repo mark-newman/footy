@@ -264,7 +264,7 @@ class Player
         );
         foreach($this->getTeamPlayers() as $team_player){
             if($team_player->getTeam()->getGame()->getPlayed()){
-                $results[$team_player->getTeam()->getResultType()] = $team_player;
+                $results[$team_player->getTeam()->getResultType()][] = $team_player;
             }
         }
         return $results;
