@@ -142,7 +142,7 @@ class TeamCategory
         );
         foreach($this->getTeams() as $team){
             if($team->getGame()->getPlayed()){
-                $results[$team->getResultType()] = $team;
+                $results[$team->getResultType()][] = $team;
             }
         }
         return $results;
